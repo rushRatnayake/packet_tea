@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'packetteaapp.dart';
+
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(PacketTeaApp());
 }
 
 class MyApp extends StatelessWidget {
