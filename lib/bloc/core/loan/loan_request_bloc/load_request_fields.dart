@@ -61,7 +61,7 @@ class LoanDateField
   const LoanDateField.dirty(DateTime value) : super.dirty(value);
 
   String getValueFormatted() {
-    return Jiffy(value).Hm;
+    return Jiffy(value).yMMMd;
   }
 
   @override
@@ -79,6 +79,7 @@ class LoanDateField
     return this.error == null ? null : this.error.message;
   }
 }
+
 enum LoanNoteError {lessCharacterCount, characterCountExceeded, invalidPattern}
 
 extension LoanNoteErrorMessage on LoanNoteError {

@@ -4,6 +4,7 @@ part of 'manure_request_bloc.dart';
 class ManureRequestState extends Equatable {
   final ManureWeightField weightField;
   final ManureContactField contactField;
+  final ManureContactNameField contactNameField;
   final ManureTypeField typeField;
 
   /// Overall form status
@@ -12,6 +13,7 @@ class ManureRequestState extends Equatable {
   const ManureRequestState({
     this.weightField,
     this.contactField,
+    this.contactNameField,
     this.typeField,
     this.status,
   });
@@ -21,12 +23,14 @@ class ManureRequestState extends Equatable {
   ManureRequestState copyWith({
     ManureWeightField weightField,
     ManureContactField contactField,
+    ManureContactNameField contactNameField,
     ManureTypeField typeField,
     FormzStatus status,
   }) {
     return ManureRequestState(
       weightField: weightField ?? this.weightField,
       contactField: contactField ?? this.contactField,
+      contactNameField: contactNameField ?? this.contactNameField,
       typeField: typeField ?? this.typeField,
       status: status ?? this.status,
     );
@@ -39,6 +43,7 @@ class ManureRequestState extends Equatable {
     var list = <FormzInput<dynamic, dynamic>>[
       weightField,
       contactField,
+      contactNameField,
       typeField,
     ].where((element) => element.runtimeType != T).toList();
     list.add(andReplaceItWith);
@@ -49,6 +54,7 @@ class ManureRequestState extends Equatable {
   List<Object> get props => [
     weightField,
     contactField,
+    contactNameField,
     typeField,
     status,
   ];

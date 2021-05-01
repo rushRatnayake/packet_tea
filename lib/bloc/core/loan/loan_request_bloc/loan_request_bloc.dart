@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
 import 'package:get_it/get_it.dart';
-import 'package:packet_tea/bloc/core/loan/load_request_fields.dart';
+import 'package:packet_tea/bloc/core/loan/loan_request_bloc/load_request_fields.dart';
 import 'package:packet_tea/data/services/apis/loan_services.dart';
 
 part 'loan_request_event.dart';
@@ -43,10 +43,10 @@ class LoanRequestBloc extends Bloc<LoanRequestEvent, LoanRequestState> {
   /// Related to [LoanAmountField]
   Stream<LoanRequestState> _mapLoanAmountChangedEToS(
       LoanAmountChanged event) async* {
-    final newValue = LoanAmountField.dirty(event.loanAmount.value);
+    final newValue = LoanAmountField.dirty(event.loanAmount);
     yield state.copyWith(
       loanAmountField:
-      newValue.valid ? LoanAmountField.pure(event.loanAmount.value) : newValue,
+      newValue.valid ? LoanAmountField.pure(event.loanAmount) : newValue,
       status: Formz.validate(
           state.allFormFieldsExcept<LoanAmountField>(andReplaceItWith: newValue)),
     );
@@ -55,10 +55,10 @@ class LoanRequestBloc extends Bloc<LoanRequestEvent, LoanRequestState> {
   /// Related to [LoanDateField]
   Stream<LoanRequestState> _mapLoanDateChangedEToS(
       LoanDateChanged event) async* {
-    final newValue = LoanDateField.dirty(event.loanDate.value);
+    final newValue = LoanDateField.dirty(event.loanDate);
     yield state.copyWith(
       loanDateField:
-      newValue.valid ? LoanDateField.pure(event.loanDate.value) : newValue,
+      newValue.valid ? LoanDateField.pure(event.loanDate) : newValue,
       status: Formz.validate(
           state.allFormFieldsExcept<LoanDateField>(andReplaceItWith: newValue)),
     );
@@ -67,10 +67,10 @@ class LoanRequestBloc extends Bloc<LoanRequestEvent, LoanRequestState> {
   /// Related to [LoanNotesField]
   Stream<LoanRequestState> _mapLoanNotesChangedEToS(
       LoanNotesChanged event) async* {
-    final newValue = LoanNotesField.dirty(event.notes.value);
+    final newValue = LoanNotesField.dirty(event.notes);
     yield state.copyWith(
       loanNotesField:
-      newValue.valid ? LoanNotesField.pure(event.notes.value) : newValue,
+      newValue.valid ? LoanNotesField.pure(event.notes) : newValue,
       status: Formz.validate(
           state.allFormFieldsExcept<LoanNotesField>(andReplaceItWith: newValue)),
     );

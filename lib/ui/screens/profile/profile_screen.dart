@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:packet_tea/data/services/secure_storage.dart';
+import 'package:packet_tea/ui/screens/login/login_screen.dart';
 import 'package:packet_tea/ui/themes/appColors.dart';
 
 class ProfileScreen extends StatefulWidget{
@@ -11,6 +14,8 @@ class ProfileScreen extends StatefulWidget{
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final SecureStorageService _secureStorageService =
+  GetIt.I.get<SecureStorageService>();
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +100,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           color: AppColors.white),
       child: GestureDetector(
         //TODO : On  Tap implementation
-        onTap: () async{},
+        onTap: () async{
+          await _secureStorageService.deleteSecureData("AccessToken");
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) {
+              return LogInScreen();
+            }),
+          );
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

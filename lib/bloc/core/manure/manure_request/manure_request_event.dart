@@ -10,7 +10,7 @@ abstract class ManureRequestEvent extends Equatable {
 /// This changed event is the event that gets triggered when the
 /// user change the Manure Weight text field.
 class ManureWeightChanged extends ManureRequestEvent {
-  final ManureWeightField weight;
+  final String weight;
 
   const ManureWeightChanged({this.weight});
 
@@ -22,7 +22,7 @@ class ManureWeightChanged extends ManureRequestEvent {
 /// This changed event is the event that gets triggered when the
 /// user change the Manure contact field.
 class ManureContactChanged extends ManureRequestEvent {
-  final ManureContactField contactField;
+  final String contactField;
 
   const ManureContactChanged({this.contactField});
 
@@ -30,12 +30,24 @@ class ManureContactChanged extends ManureRequestEvent {
   List<Object> get props => [contactField];
 }
 
+/// [ManureContactNameField]
+/// This changed event is the event that gets triggered when the
+/// user change the Manure contact name field.
+class ManureContactNameChanged extends ManureRequestEvent {
+  final String contactNameField;
+
+  const ManureContactNameChanged({this.contactNameField});
+
+  @override
+  List<Object> get props => [contactNameField];
+}
+
 
 /// [ManureTypeField]
 /// This changed event is the event that gets triggered when the
 /// user change the manure type field.
 class ManureTypeChanged extends ManureRequestEvent {
-  final ManureTypeField typeField;
+  final String typeField;
 
   const ManureTypeChanged({this.typeField});
 

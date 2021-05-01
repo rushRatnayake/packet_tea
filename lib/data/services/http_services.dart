@@ -1,27 +1,26 @@
 import 'dart:io';
 
-import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:dio/dio.dart';
 import 'package:packet_tea/data/config/configurations.dart';
+import 'package:packet_tea/data/services/secure_storage.dart';
 
 class HttpClientService {
 
-  /// Base option : Loyalty URL
   static final _defaultBaseOptions = BaseOptions(
-    baseUrl: Configurations
-        .apiOrigin, //change in to production url when used in production
+    baseUrl: Configurations.apiOrigin,
     contentType: Headers.jsonContentType,
     responseType: ResponseType.json,
   );
 
-  /// Get Request for RewardStickApp
-  static Future<Response<T>> getReq<T>(String endpoint,
-      {Map<String, dynamic> queryParameters,
+  static Future<Response<T>> getReq<T>(
+      String endpoint, {
+        Map<String, dynamic> queryParameters,
         Options options,
         CancelToken cancelToken,
         ProgressCallback onReceiveProgress,
-        BaseOptionType baseOptionType = BaseOptionType.defaultBaseOption}) async {
-    options = await _wrapWithSession(options, baseOptionType);
+        bool isProtectedEndpoint = true,
+      }) async {
+    if (isProtectedEndpoint) options = await _wrapWithSession(options);
     return Dio(_defaultBaseOptions).get<T>(
       endpoint,
       options: options,
@@ -31,16 +30,17 @@ class HttpClientService {
     );
   }
 
-  /// Post Request for RewardStickApp
-  static Future<Response<T>> postReq<T>(String endpoint,
-      {dynamic data,
+  static Future<Response<T>> postReq<T>(
+      String endpoint, {
+        dynamic data,
         Map<String, dynamic> queryParameters,
         Options options,
         CancelToken cancelToken,
         ProgressCallback onSendProgress,
         ProgressCallback onReceiveProgress,
-        BaseOptionType baseOptionType = BaseOptionType.defaultBaseOption}) async {
-    options = await _wrapWithSession(options, baseOptionType);
+        bool isProtectedEndpoint = true,
+      }) async {
+    if (isProtectedEndpoint) options = await _wrapWithSession(options);
     return Dio(_defaultBaseOptions).post<T>(
       endpoint,
       data: data,
@@ -52,33 +52,41 @@ class HttpClientService {
     );
   }
 
-  static Future<List<Response>> concurrent<T>(
-      List<Future<Response<T>>> requests) async {
+  static Future<List<Response>> concurrent<T>(List<Future<Response<T>>> requests) async {
     return Future.wait([...requests]);
   }
 
-  /// Wrapping the requests with sessions
-  static Future<Options> _wrapWithSession(
-      Options options, BaseOptionType optionType) async {
-    String token = await getToken(optionType);
-    print(token);
-    return (options ?? Options())
-        .merge(headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
-  }
-
-  /// Calls Create token method and send the necessary data for each base option type
-  static Future<String> getToken(BaseOptionType optionType) async {
-    String token = "";
-  }
-
-  /// Create JWT tokens with and without access tokens
-  static Future<String> createToken(
-      String privateKey, String issuer, String audience) async {
-    JWT jwt;
-    return "";
+  static Future<Options> _wrapWithSession(Options options) async {
+    final SecureStorageService secureStorage = SecureStorageService();
+    final accessToken = await secureStorage.readSecureData("AccessToken");
+    if (accessToken != null) {
+      return (options ?? Options())
+          .merge(headers: {HttpHeaders.authorizationHeader: 'Bearer $accessToken'});
+    }else{
+      return options;
+    }
   }
 }
 
-enum BaseOptionType {
-  defaultBaseOption,
+class PacketTeaAPIResponse<T> extends Object {
+  bool status;
+  String message;
+  T value;
+
+  PacketTeaAPIResponse(Map<String, dynamic> json) {
+    this.status = json['status'] as bool ?? false;
+    this.message = json['message'] as String ?? "";
+    if (json['value'] != null) {
+      this.value = json['value'] as T;
+    }
+  }
+
+  @override
+  String toString() {
+    return {
+      "state": status,
+      "message": message,
+      "result": value,
+    }.toString();
+  }
 }

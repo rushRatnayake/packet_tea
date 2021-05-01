@@ -11,7 +11,7 @@ abstract class LoanRequestEvent extends Equatable {
 /// This changed event is the event that gets triggered when the
 /// user change the loan amount text field.
 class LoanAmountChanged extends LoanRequestEvent {
-  final LoanAmountField loanAmount;
+  final String loanAmount;
 
   const LoanAmountChanged({this.loanAmount});
 
@@ -23,7 +23,7 @@ class LoanAmountChanged extends LoanRequestEvent {
 /// This changed event is the event that gets triggered when the
 /// user change the loan date field.
 class LoanDateChanged extends LoanRequestEvent {
-  final LoanDateField loanDate;
+  final DateTime loanDate;
 
   const LoanDateChanged({this.loanDate});
 
@@ -36,7 +36,7 @@ class LoanDateChanged extends LoanRequestEvent {
 /// This changed event is the event that gets triggered when the
 /// user change the loan notes text field.
 class LoanNotesChanged extends LoanRequestEvent {
-  final LoanNotesField notes;
+  final String notes;
 
   const LoanNotesChanged({this.notes});
 

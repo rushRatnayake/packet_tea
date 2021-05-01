@@ -30,7 +30,7 @@ class AppColors {
   // static const bluishPurple = Color(0xFF4432a8);
   // static const lightPink = Color(0xFFF4ECFF);
   static const background = Color(0xFFF5F6FB);
-  // static const lightGreen =  Color(0xFF23bf6d);
+  static const lightGreen =  Color(0xFF23bf6d);
   // static const lighterGreen = Color(0xFF00C899);
 
   ///App color palette
@@ -43,7 +43,7 @@ class AppColors {
   /// Natural Palette
   //App Green1
   static const naturalGreen = Color(0xFF7A9972);
-  static const naturalLightGreen = Color(0xFFF2FCEF);
+  static const naturalLightGreen = Color(0xFFF0F5F0);
   static const naturalCreme = Color (0xFFF6EDD9);
 
   ///Shades Palette
@@ -52,5 +52,9 @@ class AppColors {
   static const shadesGreen2 = Color(0xFF6BB25F);
   static const shadesGreen3 = Color(0xFF89D27B);
   static const shadesGreen4 = Color(0xFFA8F199);
+
+  static const whitishGreen = Color(0xFF175454);
+  static const whitishGreen2 = Color(0xFF378752);
+
 
 }

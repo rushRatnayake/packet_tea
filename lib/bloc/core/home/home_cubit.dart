@@ -16,7 +16,9 @@ class HomeCubit extends Cubit<HomeState> {
       newView = HomeScreenView.manure;
     }else if (selectedBottomTabIndex == 2) {
       newView = HomeScreenView.loan;
-    } else {
+    }else if (selectedBottomTabIndex == 3) {
+      newView = HomeScreenView.harvest;
+    }  else {
       newView = HomeScreenView.profile;
     }
     emit(state.copyWith(
@@ -33,9 +35,11 @@ class HomeCubit extends Cubit<HomeState> {
       index = 1;
     } else if (view == HomeScreenView.loan) {
       index = 2;
+    } else if (view == HomeScreenView.loan) {
+      index = 3;
     } else {
       assert(view == HomeScreenView.profile);
-      index = 3;
+      index = 4;
     }
     emit(state.copyWith(
       currentView: view,

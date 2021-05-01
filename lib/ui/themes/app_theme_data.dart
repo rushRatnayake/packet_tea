@@ -6,11 +6,11 @@ import 'text_themes.dart';
 
 final ThemeData AppThemeData = ThemeData(
     brightness: Brightness.light,
-    primaryColor: AppColors.white,
+    primaryColor: AppColors.naturalLightGreen,
     secondaryHeaderColor: AppColors.grey.withOpacity(0.4),
-    accentColor: AppColors.appGreen1,
+    accentColor: AppColors.white,
     appBarTheme: AppBarTheme(
-        color:AppColors.white,
+        color:Colors.white,
         iconTheme: IconThemeData(color: AppColors.appGreen1),
         textTheme: appThemeBarTextThemes,
         brightness: Brightness.light
@@ -18,15 +18,15 @@ final ThemeData AppThemeData = ThemeData(
     textTheme: appThemeTextTheme,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: AppColors.appGreen2,
-      foregroundColor: AppColors.white,
+      foregroundColor: AppColors.naturalLightGreen,
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       // elevation: 50,
       backgroundColor: AppColors.white,
-      selectedItemColor: AppColors.appGreen1.withOpacity(0.8),
-      unselectedItemColor: AppColors.appGreen1.withOpacity(0.4),
-      selectedIconTheme: IconThemeData(color: AppColors.appGreen1.withOpacity(0.8)),
-      unselectedIconTheme: IconThemeData(color: AppColors.appGreen1.withOpacity(0.4)),
+      selectedItemColor: AppColors.appGreen1,
+      unselectedItemColor: AppColors.appGreen1.withOpacity(0.5),
+      selectedIconTheme: IconThemeData(color: AppColors.appGreen1),
+      unselectedIconTheme: IconThemeData(color: AppColors.appGreen1.withOpacity(0.5)),
     ),
     cardColor: AppColors.white,
     bottomSheetTheme: BottomSheetThemeData(
@@ -39,10 +39,10 @@ final ThemeData AppThemeData = ThemeData(
     scaffoldBackgroundColor: AppColors.white,
     iconTheme: IconThemeData(color: AppColors.black),
     colorScheme: ColorScheme(
-      primary: AppColors.appGreen1,
-      primaryVariant: AppColors.appLightGreen1,
-      secondary: AppColors.appGreen2,
-      secondaryVariant: AppColors.appGreen2,
+      primary: AppColors.white,
+      primaryVariant: AppColors.white,
+      secondary: AppColors.white,
+      secondaryVariant: AppColors.white,
       surface: AppColors.lightGrey,
       background: AppColors.darkGrey,
       error: AppColors.orangeRedCrayola,
@@ -53,9 +53,9 @@ final ThemeData AppThemeData = ThemeData(
       onError: AppColors.white,
       brightness: Brightness.light,
     ),
-    bottomAppBarColor: AppColors.transparent,
+    bottomAppBarColor: AppColors.white,
     bottomAppBarTheme: BottomAppBarTheme(
-      color: AppColors.transparent,
+      color: AppColors.white,
       elevation: 0,
     ),
     unselectedWidgetColor: AppColors.appGreen1

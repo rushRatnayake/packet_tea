@@ -21,13 +21,13 @@ class ManureWeightField extends CustomFormzInput<String, ManureWeightError>{
   ManureWeightField.pure([String value = ""]) : super.pure(value);
   ManureWeightField.dirty(String value) : super.dirty(value);
 
-  static final RegExp loanAmountPattern = RegExp("^[0-9]+\$");
+  static final RegExp manureWeightPattern = RegExp("^[0-9]+\$");
 
   @override
   ManureWeightError validator(String value) {
     if (value == null || value.trim().isEmpty) {
       return ManureWeightError.empty;
-    }if(!loanAmountPattern.hasMatch(value)){
+    }if(!manureWeightPattern.hasMatch(value)){
       return ManureWeightError.invalidPattern;
     }return null;
   }
@@ -37,7 +37,7 @@ class ManureWeightField extends CustomFormzInput<String, ManureWeightError>{
   }
 }
 
-enum ManureContactError {empty, invalidPattern}
+enum ManureContactError {empty, invalidPattern,characterLength}
 
 extension ManureContactErrorMessage on ManureContactError {
   String get message {
@@ -46,6 +46,8 @@ extension ManureContactErrorMessage on ManureContactError {
         return 'You cannot leave this blank';
       case ManureContactError.invalidPattern:
         return 'You can only include numbers!';
+      case ManureContactError.characterLength:
+        return '10 digits required!';
       default:
         return null;
     }
@@ -57,14 +59,17 @@ class ManureContactField extends CustomFormzInput<String, ManureContactError>{
   ManureContactField.pure([String value = ""]) : super.pure(value);
   ManureContactField.dirty(String value) : super.dirty(value);
 
-  static final RegExp loanAmountPattern = RegExp("^[0-9]+\$");
+  static final RegExp manureContactPattern = RegExp("^[0-9]+\$");
+  static final numberOfCharacters = 10;
 
   @override
   ManureContactError validator(String value) {
     if (value == null || value.trim().isEmpty) {
       return ManureContactError.empty;
-    }if(!loanAmountPattern.hasMatch(value)){
+    }if(!manureContactPattern.hasMatch(value)){
       return ManureContactError.invalidPattern;
+    }if(value.length != numberOfCharacters){
+      return ManureContactError.characterLength;
     }return null;
   }
   String getErrorMessageIfExists() {
@@ -72,6 +77,44 @@ class ManureContactField extends CustomFormzInput<String, ManureContactError>{
     return this.error == null ? null : this.error.message;
   }
 }
+
+enum ManureContactNameError {empty, invalidPattern, characterLength}
+
+extension ManureContactNameErrorMessage on ManureContactNameError {
+  String get message {
+    switch (this) {
+      case ManureContactNameError.empty:
+        return 'You cannot leave this blank';
+      case ManureContactNameError.invalidPattern:
+        return 'You can only include numbers!';
+      default:
+        return null;
+    }
+  }
+}
+
+class ManureContactNameField extends CustomFormzInput<String, ManureContactNameError>{
+
+  ManureContactNameField.pure([String value = ""]) : super.pure(value);
+  ManureContactNameField.dirty(String value) : super.dirty(value);
+
+  static final RegExp manureContactNamePattern = RegExp("^[a-zA-Z ]+\$");
+
+  @override
+  ManureContactNameError validator(String value) {
+    if (value == null || value.trim().isEmpty) {
+      return ManureContactNameError.empty;
+    }if(!manureContactNamePattern.hasMatch(value)){
+      return ManureContactNameError.invalidPattern;
+    }return null;
+
+  }
+  String getErrorMessageIfExists() {
+    if (!this.invalid) {return null;}
+    return this.error == null ? null : this.error.message;
+  }
+}
+
 
 enum ManureTypeError {empty}
 
