@@ -62,16 +62,12 @@ class _HomePageState extends State<HomePage> {
                 key: const Key("HomeScreenScaffold"),
                 appBar: _mapAppBarToScaffold(context, state.currentView),
                 backgroundColor: Theme.of(contextA).scaffoldBackgroundColor,
-                body: Scrollbar(
-                  child: SingleChildScrollView(
-                    child: SafeArea(
+                body:SafeArea(
                       child: (() {
                         var screen = HomePage.pages[state.selectedBottomTabIndex];
                         return screen;
                       })(),
                     ),
-                  ),
-                ),
                 bottomNavigationBar: _buildBottomBarWidget(),
               );
             },

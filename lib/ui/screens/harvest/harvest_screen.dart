@@ -2,17 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:packet_tea/bloc/core/harvest/harvest_bloc.dart';
-import 'package:packet_tea/bloc/core/manure/manure/manure_bloc.dart';
 import 'package:packet_tea/bloc/core/manure/manure_request/manure_request_bloc.dart';
 import 'package:packet_tea/data/models/harvest_model.dart';
-import 'package:packet_tea/data/models/manure_model.dart';
 import 'package:packet_tea/ui/screens/common_widgets/generic_error_message.dart';
 import 'package:packet_tea/ui/screens/common_widgets/no_items_widget.dart';
 import 'package:packet_tea/ui/screens/manure/add_manure_form.dart';
 import 'package:packet_tea/ui/themes/appColors.dart';
 
-class HarvestScreen extends StatelessWidget{
-
+class HarvestScreen extends StatelessWidget {
   const HarvestScreen({Key key}) : super(key: key);
 
   @override
@@ -21,14 +18,17 @@ class HarvestScreen extends StatelessWidget{
       providers: _createBlocProviders(context),
       child: Builder(
         builder: (context) {
-          return  Scaffold(
-              body: Scrollbar(child: SingleChildScrollView(child: Container(width: double.infinity, child: _buildChild(context))),),
+          return Scaffold(
+              body: Scrollbar(
+                child: SingleChildScrollView(
+                    child: Container(
+                        width: double.infinity, child: _buildChild(context))),
+              ),
               floatingActionButton: _buildFloatingButton(context));
         },
       ),
     );
   }
-
 
   List<BlocProvider> _createBlocProviders(final BuildContext context) {
     return [
@@ -49,13 +49,16 @@ class HarvestScreen extends StatelessWidget{
         if (state is HarvestInitial || state is HarvestInProgressState) {
           return Center(child: CircularProgressIndicator());
         } else if (state is HarvestSuccessState) {
-          if (state.harvest.harvests.isEmpty){
+          if (state.harvest.harvests.isEmpty) {
             return NoItemsToShowMessageWidget(
               message: "No Manure Requests",
             );
-          }else{
+          } else {
             return Column(
-              children: [_buildTotal(context, state.harvest.totalHarvestAmount), _buildList(context, state.harvest.harvests)],
+              children: [
+                _buildTotal(context, state.harvest.totalHarvestAmount),
+                _buildList(context, state.harvest.harvests)
+              ],
             );
           }
         } else {
@@ -64,7 +67,6 @@ class HarvestScreen extends StatelessWidget{
         }
       },
     );
-
   }
 
   Widget _buildTotal(BuildContext context, String total) {
@@ -117,7 +119,7 @@ class HarvestScreen extends StatelessWidget{
     return Column(
       children: [
         Container(
-          // width: double.infinity,
+          width: double.infinity,
           color: AppColors.lightGrey,
           padding: EdgeInsets.only(top: 10, left: 10, bottom: 10),
           child: Text(
@@ -134,17 +136,21 @@ class HarvestScreen extends StatelessWidget{
             shrinkWrap: true,
             itemBuilder: (context, index) => _listItem(context, harvest[index]),
             scrollDirection: Axis.vertical,
-            separatorBuilder: (context, index) => const SizedBox(height: 5),),
+            separatorBuilder: (context, index) => const SizedBox(height: 5),
+          ),
         )
       ],
     );
   }
 
-
-  Widget _listItem(BuildContext context, HarvestModel harvest){
+  Widget _listItem(BuildContext context, HarvestModel harvest) {
     return Container(
       padding: EdgeInsets.only(left: 5),
-      color: harvest.status == 'pending'? AppColors.darkYellow :  harvest.status == 'accepted'? AppColors.green :AppColors.red,
+      color: harvest.status == 'pending'
+          ? AppColors.darkYellow
+          : harvest.status == 'accepted'
+              ? AppColors.green
+              : AppColors.red,
       child: Container(
           color: AppColors.white,
           child: Row(
@@ -202,7 +208,7 @@ class HarvestScreen extends StatelessWidget{
                   ),
                 ],
               ),
-              if(harvest.amount != null)...[
+              if (harvest.amount != null) ...[
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
@@ -219,6 +225,7 @@ class HarvestScreen extends StatelessWidget{
           )),
     );
   }
+
   Widget _buildFloatingButton(BuildContext context) {
     return FloatingActionButton(
       child: IconButton(

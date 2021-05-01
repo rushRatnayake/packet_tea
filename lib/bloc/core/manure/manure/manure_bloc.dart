@@ -34,4 +34,15 @@ class ManureBloc extends Bloc<ManureEvent, ManureState> {
       yield ManureFailedState();
     }
   }
+
+  Stream<ManureState> _deleteManureRecords(
+      ManureEvent event) async* {
+    yield ManureInProgressState();
+    try {
+      final ManureParentModel manure = await _manureServices.fetchManureByID();
+      yield ManureSuccessState(manure: manure);
+    } catch (error) {
+      yield ManureFailedState();
+    }
+  }
 }

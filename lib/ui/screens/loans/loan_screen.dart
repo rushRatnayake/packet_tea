@@ -94,14 +94,14 @@ class LoanScreen extends StatelessWidget{
                 "$total LKR",
                 style: Theme.of(context)
                     .textTheme
-                    .headline6
-                    .copyWith(color: AppColors.white, letterSpacing: 1.5),
+                    .headline4
+                    .copyWith(color: AppColors.white),
               )
             ],
           ),
           Icon(
             Icons.monetization_on_outlined,
-            size: 40,
+            size: 50,
             color: AppColors.white,
           )
         ],

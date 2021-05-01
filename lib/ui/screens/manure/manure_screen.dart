@@ -72,7 +72,7 @@ class ManureScreen extends StatelessWidget {
 
   Widget _buildTotal(BuildContext context, String total, String amount) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       height: 100,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -101,14 +101,14 @@ class ManureScreen extends StatelessWidget {
                 "$total KG",
                 style: Theme.of(context)
                     .textTheme
-                    .headline6
-                    .copyWith(color: AppColors.white, letterSpacing: 1.5),
+                    .headline4
+                    .copyWith(color: AppColors.white),
               )
             ],
           ),
           Icon(
             Icons.line_style,
-            size: 40,
+            size: 50,
             color: AppColors.white,
           )
         ],
@@ -145,87 +145,89 @@ class ManureScreen extends StatelessWidget {
   }
 
   Widget _listItem(BuildContext context, ManureModel manure) {
-    return Container(
-      padding: EdgeInsets.only(left: 5),
-      color: manure.status == 'pending'
-          ? AppColors.darkYellow
-          : manure.status == 'accepted'
-              ? AppColors.green
-              : AppColors.red,
+    return InkWell(
       child: Container(
-          color: AppColors.white,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Text(
-                        "${manure.weight} KG",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6
-                            .copyWith(letterSpacing: 1),
-                        textAlign: TextAlign.left,
-                      ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Text(
-                        "${manure.contactNumber}",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            .copyWith(letterSpacing: 1),
-                        textAlign: TextAlign.left,
-                      ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Text(
-                        manure.status == 'pending'
-                            ? "Pending"
-                            : manure.status == 'approved'
-                                ? "Approved"
-                                : "Rejected",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2
-                            .copyWith(letterSpacing: 1, color: AppColors.grey),
-                        textAlign: TextAlign.left,
-                      ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  "${manure.type}".toUpperCase(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6
-                      .copyWith(letterSpacing: 1, color: AppColors.grey),
-                  textAlign: TextAlign.left,
+        padding: EdgeInsets.only(left: 8),
+        color: manure.status == 'pending'
+            ? AppColors.darkYellow
+            : manure.status == 'accepted'
+                ? AppColors.green
+                : AppColors.red,
+        child: Container(
+            color: AppColors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 3,
+                        ),
+                        Text(
+                          "${manure.weight} KG",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              .copyWith(letterSpacing: 1),
+                          textAlign: TextAlign.left,
+                        ),
+                        SizedBox(
+                          height: 3,
+                        ),
+                        Text(
+                          "${manure.contactPerson} - ${manure.contactNumber}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              .copyWith(letterSpacing: 1),
+                          textAlign: TextAlign.left,
+                        ),
+                        SizedBox(
+                          height: 3,
+                        ),
+                        Text(
+                          manure.status == 'pending'
+                              ? "Pending"
+                              : manure.status == 'approved'
+                                  ? "Approved"
+                                  : "Rejected",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2
+                              .copyWith(letterSpacing: 1, color: AppColors.grey),
+                          textAlign: TextAlign.left,
+                        ),
+                        SizedBox(
+                          height: 3,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                  ],
                 ),
-              )
-            ],
-          )),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    "${manure.type}".toUpperCase(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        .copyWith(letterSpacing: 1, color: AppColors.grey),
+                    textAlign: TextAlign.left,
+                  ),
+                )
+              ],
+            )),
+      ),
     );
   }
 
