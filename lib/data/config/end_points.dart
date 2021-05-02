@@ -3,6 +3,7 @@ class EndPoints{
 
   ///Manure : Endpoints
   static const String requestManure = "manure";
+  static const String deleteManure = "manure/";
   static const String getManureByUserID = "manure/estate/";
   static const String getManureTotal = "";
 

@@ -21,6 +21,8 @@ class ManureBloc extends Bloc<ManureEvent, ManureState> {
       ) async* {
     if (event is ManureFetchEvent) {
       yield* _fetchManureRecords(event);
+    }else if(event is ManureDeleteEvent){
+      yield* _deleteManureRecords(event);
     }
   }
 
@@ -36,13 +38,11 @@ class ManureBloc extends Bloc<ManureEvent, ManureState> {
   }
 
   Stream<ManureState> _deleteManureRecords(
-      ManureEvent event) async* {
-    yield ManureInProgressState();
+      ManureDeleteEvent event) async* {
     try {
-      final ManureParentModel manure = await _manureServices.fetchManureByID();
-      yield ManureSuccessState(manure: manure);
+      final bool successful = await _manureServices.deleteManureByID(event.deleteItemId);
     } catch (error) {
-      yield ManureFailedState();
+
     }
   }
 }

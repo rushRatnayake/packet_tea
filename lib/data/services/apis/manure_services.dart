@@ -56,5 +56,19 @@ class ManureServices{
       throw Exception("failed to fetch manure");
     }
   }
+
+  Future<bool> deleteManureByID(String manureID) async{
+    try{
+      Response res = await HttpClientService.deleteReq(EndPoints.deleteManure+manureID);
+      final parsed = PacketTeaAPIResponse<Map<String, dynamic>>(res.data);
+      if(res.statusCode == 200 && parsed.status){
+        return true;
+      }else{
+        return false;
+      }
+    }catch(error){
+      throw error;
+    }
+  }
 }
 
