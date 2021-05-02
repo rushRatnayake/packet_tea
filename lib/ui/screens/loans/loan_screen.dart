@@ -176,7 +176,7 @@ class LoanScreen extends StatelessWidget{
       ],
       child: Container(
         padding: EdgeInsets.only(left: 5),
-        color: loan.status == 'pending'? AppColors.darkYellow :  loan.status == 'approved'? AppColors.green :AppColors.red,
+        color: loan.status == 'pending'? AppColors.darkYellow :  loan.status == 'rejected'? AppColors.red :AppColors.green,
         child: Container(
             color: AppColors.white,
             child: Row(
@@ -217,7 +217,7 @@ class LoanScreen extends StatelessWidget{
                           height: 3,
                         ),
                         Text(
-                          loan.status == 'pending'? "Pending" :  loan.status == 'approved'? "Approved" : "Rejected",
+                          loan.status == 'pending'? "Pending" :  loan.status == 'rejected'? "Rejected" : "Approved",
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2
@@ -237,9 +237,9 @@ class LoanScreen extends StatelessWidget{
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Icon(
-                    loan.status == 'pending'? Icons.pending_outlined :  loan.status == 'approved'? Icons.done :Icons.cancel_outlined,
+                    loan.status == 'pending'? Icons.pending_outlined :  loan.status == 'rejected'? Icons.cancel_outlined :Icons.done,
                     size: 30,
-                    color: loan.status == 'pending'? AppColors.darkYellow :  loan.status == 'approved'? AppColors.green :AppColors.red,
+                    color: loan.status == 'pending'? AppColors.darkYellow :  loan.status == 'rejected'? AppColors.red :AppColors.green,
                   ),
                 )
               ],

@@ -187,9 +187,9 @@ class ManureScreen extends StatelessWidget {
             padding: EdgeInsets.only(left: 8),
             color: manure.status == 'pending'
                 ? AppColors.darkYellow
-                : manure.status == 'accepted'
-                ? AppColors.green
-                : AppColors.red,
+                : manure.status == 'rejected'
+                ? AppColors.red
+                : AppColors.green,
             child: Container(
                 color: AppColors.white,
                 child: Row(
@@ -232,9 +232,9 @@ class ManureScreen extends StatelessWidget {
                             Text(
                               manure.status == 'pending'
                                   ? "Pending"
-                                  : manure.status == 'accepted'
-                                  ? "Approved"
-                                  : "Rejected",
+                                  : manure.status == 'rejected'
+                                  ? "Rejected"
+                                  : "Approved",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2

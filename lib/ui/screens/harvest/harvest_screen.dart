@@ -147,9 +147,9 @@ class HarvestScreen extends StatelessWidget {
       padding: EdgeInsets.only(left: 5),
       color: harvest.status == 'pending'
           ? AppColors.darkYellow
-          : harvest.status == 'accepted'
-              ? AppColors.green
-              : AppColors.red,
+          : harvest.status == 'rejected'
+              ? AppColors.red
+              : AppColors.green,
       child: Container(
           color: AppColors.white,
           child: Row(
@@ -201,7 +201,7 @@ class HarvestScreen extends StatelessWidget {
                         height: 3,
                       ),
                       Text(
-                        harvest.status == 'pending'? "Pending" :  harvest.status == 'approved'? "Approved" : "Rejected",
+                        harvest.status == 'pending'? "Pending" :  harvest.status == 'rejected'? "Rejected" : "Approved",
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2
