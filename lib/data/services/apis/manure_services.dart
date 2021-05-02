@@ -39,21 +39,35 @@ class ManureServices{
     String estateID = await _sharedPreferenceService.getEstateID();
     Response res = await HttpClientService.getReq(EndPoints.getManureByUserID+estateID);
     final parsed = PacketTeaAPIResponse<Map<String, dynamic>>(res.data);
+    final ManureParentModel model = ManureParentModel();
     if (res.statusCode == 200 && parsed.status) {
       final List<dynamic> results = parsed.value['manures'];
       if (results != null && results.length > 0) {
         List<ManureModel> models = [];
         for (var v in results)
           models.add(ManureModel().fromJson(v as Map<String, dynamic>));
-        final ManureParentModel model = ManureParentModel();
         model.fromJson(parsed.value);
         model.manures = models;
         return model;
       } else {
-        return null;
+        model.manures = [];
+        return model;
       }
     } else {
       throw Exception("failed to fetch manure");
+    }
+  }
+
+  Future<bool> deleteManureByID(String manureID) async{
+    try{
+      Response res = await HttpClientService.deleteReq(EndPoints.deleteManure+manureID);
+      if(res.statusCode == 200 && res.data['status']){
+        return true;
+      }else{
+        return false;
+      }
+    }catch(error){
+      throw error;
     }
   }
 }

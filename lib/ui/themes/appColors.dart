@@ -53,8 +53,9 @@ class AppColors {
   static const shadesGreen3 = Color(0xFF89D27B);
   static const shadesGreen4 = Color(0xFFA8F199);
 
-  static const whitishGreen = Color(0xFF175454);
+  static const whitishGreen = Color(0xFF1f454d);
   static const whitishGreen2 = Color(0xFF378752);
 
+  static const somegreen = Color(0xFF3c8d93);
 
 }

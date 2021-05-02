@@ -4,13 +4,13 @@ abstract class EstateEvent extends Equatable {
   const EstateEvent();
 }
 
-class EstatesFetchEvent extends Equatable {
+class EstatesFetchEvent extends EstateEvent {
   @override
   List<Object> get props => [];
 }
 
 
-abstract class EstateSelectEvent extends Equatable {
+abstract class EstateSelectEvent extends EstateEvent {
   final String selectedEstateID;
 
   const EstateSelectEvent({this.selectedEstateID});

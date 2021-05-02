@@ -40,21 +40,35 @@ class LoanServices{
     String estateID = await _sharedPreferenceService.getEstateID();
     Response res = await HttpClientService.getReq(EndPoints.getLoansByEstateID+estateID);
     final parsed = PacketTeaAPIResponse<Map<String, dynamic>>(res.data);
+    final LoanParentModel model = LoanParentModel();
     if (res.statusCode == 200 && parsed.status) {
       final List<dynamic> results = parsed.value['loans'];
       if (results != null && results.length > 0) {
         List<LoanModel> models = [];
         for (var v in results)
           models.add(LoanModel().fromJson(v as Map<String, dynamic>));
-        final LoanParentModel model = LoanParentModel();
         model.fromJson(parsed.value);
         model.loan = models;
         return model;
       } else {
-        return null;
+        model.loan = [];
+        return model;
       }
     } else {
       throw Exception("failed to fetch loans");
+    }
+  }
+
+  Future<bool> deleteLoanByID(String manureID) async{
+    try{
+      Response res = await HttpClientService.deleteReq(EndPoints.deleteLoans+manureID);
+      if(res.statusCode == 200 && res.data['status']){
+        return true;
+      }else{
+        return false;
+      }
+    }catch(error){
+      throw error;
     }
   }
 

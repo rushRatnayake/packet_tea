@@ -1,3 +1,4 @@
+import 'package:jiffy/jiffy.dart';
 import 'package:packet_tea/data/models/abstract_model.dart';
 
 
@@ -14,7 +15,7 @@ class LoanModel extends AbstractModel{
     id = json['id'] as String ?? "";
     amount = (json['amount'] as int ?? 0).toString();
     notes =  json['notes'] as String ?? "";
-    dateTime = (json['date'] as int ?? 0).toString();
+    dateTime = Jiffy(DateTime.fromMillisecondsSinceEpoch((json['createdAt'] as int ?? 0)*1000)).format('yyyy-M-dd');
     status = json['status'] as String ?? "";
 
     return this;

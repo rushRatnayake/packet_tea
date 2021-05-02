@@ -23,8 +23,7 @@ class HarvestScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                     child: Container(
                         width: double.infinity, child: _buildChild(context))),
-              ),
-              floatingActionButton: _buildFloatingButton(context));
+              ),);
         },
       ),
     );
@@ -71,7 +70,7 @@ class HarvestScreen extends StatelessWidget {
 
   Widget _buildTotal(BuildContext context, String total) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       height: 100,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -100,13 +99,13 @@ class HarvestScreen extends StatelessWidget {
                 "$total KG",
                 style: Theme.of(context)
                     .textTheme
-                    .headline6
-                    .copyWith(color: AppColors.white, letterSpacing: 1.5),
+                    .headline4
+                    .copyWith(color: AppColors.white),
               )
             ],
           ),
           Icon(
-            Icons.line_style,
+            Icons.grass,
             size: 40,
             color: AppColors.white,
           )
@@ -120,10 +119,10 @@ class HarvestScreen extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          color: AppColors.lightGrey,
+          color: Theme.of(context).colorScheme.surface.withOpacity(0.5),
           padding: EdgeInsets.only(top: 10, left: 10, bottom: 10),
           child: Text(
-            "Manure Requests List",
+            "Harvest Records",
             style: Theme.of(context)
                 .textTheme
                 .bodyText1
@@ -169,7 +168,7 @@ class HarvestScreen extends StatelessWidget {
                         height: 3,
                       ),
                       Text(
-                        "${harvest.approvedWeight} KG",
+                        harvest.approvedWeight == "null" ? "No Approved Weight":"${harvest.approvedWeight} KG",
                         style: Theme.of(context)
                             .textTheme
                             .headline6
@@ -180,18 +179,29 @@ class HarvestScreen extends StatelessWidget {
                         height: 3,
                       ),
                       Text(
-                        "${harvest.createAt}",
+                        "Gross Weight : ${harvest.weight} KG",
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1
-                            .copyWith(letterSpacing: 1),
+                            .copyWith(letterSpacing: 1,color: AppColors.grey),
                         textAlign: TextAlign.left,
                       ),
                       SizedBox(
                         height: 3,
                       ),
                       Text(
-                        "${harvest.status}",
+                        "${harvest.createAt}",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            .copyWith(letterSpacing: 1, color: AppColors.grey),
+                        textAlign: TextAlign.left,
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        harvest.status == 'pending'? "Pending" :  harvest.status == 'approved'? "Approved" : "Rejected",
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2
@@ -208,11 +218,11 @@ class HarvestScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              if (harvest.amount != null) ...[
+              if (harvest.amount != "null") ...[
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
-                    "${harvest.amount}".toUpperCase(),
+                    "${harvest.amount} LKR".toUpperCase(),
                     style: Theme.of(context)
                         .textTheme
                         .headline6
@@ -223,24 +233,6 @@ class HarvestScreen extends StatelessWidget {
               ]
             ],
           )),
-    );
-  }
-
-  Widget _buildFloatingButton(BuildContext context) {
-    return FloatingActionButton(
-      child: IconButton(
-        onPressed: () => {
-          Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-            return BlocProvider<ManureRequestBloc>(
-              create: (_) => ManureRequestBloc(),
-              child: AddManureForm(),
-            );
-          }))
-        },
-        icon: Icon(Icons.add),
-        color: AppColors.white,
-      ),
-      backgroundColor: AppColors.appGreen1,
     );
   }
 }

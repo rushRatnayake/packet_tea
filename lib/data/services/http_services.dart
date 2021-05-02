@@ -52,6 +52,27 @@ class HttpClientService {
     );
   }
 
+  static Future<Response<T>> deleteReq<T>(
+      String endpoint, {
+        dynamic data,
+        Map<String, dynamic> queryParameters,
+        Options options,
+        CancelToken cancelToken,
+        ProgressCallback onSendProgress,
+        ProgressCallback onReceiveProgress,
+        bool isProtectedEndpoint = true,
+      }) async {
+    if (isProtectedEndpoint) options = await _wrapWithSession(options);
+    return Dio(_defaultBaseOptions).delete<T>(
+      endpoint,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+    );
+  }
+
+
   static Future<List<Response>> concurrent<T>(List<Future<Response<T>>> requests) async {
     return Future.wait([...requests]);
   }

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:packet_tea/data/config/end_points.dart';
 import 'package:packet_tea/data/models/dashboard_model.dart';
+import 'package:packet_tea/data/models/user_model.dart';
 import 'package:packet_tea/data/services/secure_storage.dart';
 import 'package:packet_tea/data/services/shared_preferences_services.dart';
 
@@ -93,6 +94,27 @@ class UserServices {
           return models;
         } else {
           return List.empty(growable: false);
+        }
+      } else {
+        throw Exception("failed to fetch estates");
+      }
+    }catch(error){
+      throw Exception("Failed to fetch estates");
+    }
+  }
+
+
+  Future<UserModel> fetchUserData()async{
+    try{
+      Response res = await HttpClientService.getReq(EndPoints.getUserData);
+      if (res.statusCode == 200 && res.data['status']) {
+        final Map<String,dynamic> results = res.data['value'];
+        if (results != null && results.length > 0) {
+          UserModel user = UserModel();
+          user.fromJson(results);
+          return user;
+        } else {
+          return null;
         }
       } else {
         throw Exception("failed to fetch estates");

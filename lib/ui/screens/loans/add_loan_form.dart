@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:packet_tea/bloc/core/home/home_cubit.dart';
 import 'package:packet_tea/bloc/core/loan/loan_request_bloc/loan_request_bloc.dart';
 import 'package:packet_tea/ui/screens/common_widgets/app_button.dart';
 import 'package:packet_tea/ui/screens/common_widgets/custom_scaffold.dart';
 import 'package:packet_tea/ui/screens/common_widgets/loader.dart';
+import 'package:packet_tea/ui/screens/home/home_screen.dart';
+import 'package:packet_tea/ui/screens/home/home_screen_view.dart';
 import 'package:packet_tea/ui/screens/util/custom_text_editing_controller.dart';
 import 'package:packet_tea/ui/themes/appColors.dart';
 import 'package:packet_tea/ui/themes/app_theme_data.dart';
@@ -71,7 +74,14 @@ class _AddLoadFormState extends State<AddLoadForm> {
           Loader.show(status: "Requesting Loan");
         } else if (state.status == FormzStatus.submissionSuccess) {
           Loader.hide();
-          Navigator.of(context).pop();
+          Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+            Future.delayed(
+              Duration(),
+                  () => context.read<HomeCubit>().changeHomeScreenViewTo
+                (HomeScreenView.loan),
+            );
+            return HomePage();
+          }));
         } else if (state.status == FormzStatus.submissionFailure) {
           Loader.error(error: "Loan Request Failed");
         } else {
@@ -112,6 +122,7 @@ class _AddLoadFormState extends State<AddLoadForm> {
           decoration: lightModeInputDecoration().copyWith(
             labelText: "Loan Amount",
             hintText: "Enter loan amount",
+            prefixIcon: const Icon(Icons.monetization_on_outlined, color: AppColors.appGreen1,),
             hasFloatingPlaceholder: true,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             errorText: state.loanAmountField.getErrorMessageIfExists(),
@@ -142,6 +153,7 @@ class _AddLoadFormState extends State<AddLoadForm> {
           decoration: lightModeInputDecoration().copyWith(
             labelText: "Notes",
             hintText: "Add a note",
+            prefixIcon: const Icon(Icons.notes, color: AppColors.appGreen1,),
             hasFloatingPlaceholder: true,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             errorText: state.loanNotesField.getErrorMessageIfExists(),
@@ -192,7 +204,7 @@ class _AddLoadFormState extends State<AddLoadForm> {
               },
               decoration: lightModeInputDecoration().copyWith(
                 hintText: "Select Preferred Date",
-                prefixIcon: const Icon(Icons.calendar_today_rounded),
+                prefixIcon: const Icon(Icons.calendar_today_rounded, color: AppColors.appGreen1,),
                 errorText: state.loanDateField.getErrorMessageIfExists(),
               ),
             ),

@@ -8,8 +8,8 @@ class DashboardModel extends AbstractModel{
   String dailyHarvestTotal;
   String monthlyManureTotal;
   String monthlyLoanTotal;
-  String totalDebitedAmount;
-  String totalCreditedAmount;
+  int totalDebitedAmount;
+  int totalCreditedAmount;
 
   @override
   AbstractModel fromJson(Map<String, dynamic> json) {
@@ -18,8 +18,8 @@ class DashboardModel extends AbstractModel{
     dailyHarvestTotal = (json['dailyHarvestTotal'] as int ?? 0).toString();
     monthlyManureTotal = (json['monthlyManureTotal'] as int ?? 0).toString();
     monthlyLoanTotal = (json['monthlyLoanTotal'] as int ?? 0).toString();
-    totalDebitedAmount = (json['totalDebitedAmount'] as int ?? 0).toString();
-    totalCreditedAmount = (json['totalCreditedAmount'] as int ?? 0).toString();
+    totalDebitedAmount = (json['totalDebitedAmount'] as int ?? 0);
+    totalCreditedAmount = (json['totalCreditedAmount'] as int ?? 0);
 
   }
 
@@ -43,6 +43,7 @@ class EstateModel extends AbstractModel{
     id =  json['id'] as String ?? "";
     name =  json['name'] as String ?? "";
     address =  json['address'] as String ?? "";
+    return this;
 
   }
 

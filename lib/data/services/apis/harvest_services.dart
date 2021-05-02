@@ -16,6 +16,7 @@ class HarvestService{
     String estateID = await _sharedPreferenceService.getEstateID();
     Response res = await HttpClientService.getReq(EndPoints.getHarvestByEstateID+estateID);
     final parsed = PacketTeaAPIResponse<Map<String, dynamic>>(res.data);
+    final HarvestParentModel model = HarvestParentModel();
     // final Map<String, dynamic> parsed = jsonDecode(res.data);
     if (res.statusCode == 200 && parsed.status) {
       final List<dynamic> results = parsed.value['harvests'];
@@ -23,12 +24,12 @@ class HarvestService{
         List<HarvestModel> models = [];
         for (var v in results)
           models.add(HarvestModel().fromJson(v as Map<String, dynamic>));
-        final HarvestParentModel model = HarvestParentModel();
         model.fromJson(parsed.value);
         model.harvests = models;
         return model;
       } else {
-        return null;
+        model.harvests = [];
+        return model;
       }
     } else {
       throw Exception("failed to fetch loans");
