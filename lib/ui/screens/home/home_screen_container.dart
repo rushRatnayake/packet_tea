@@ -64,6 +64,7 @@ class HomeScreenContainer extends StatelessWidget {
           AccountBalance(
             accountBalance: dashboardData.totalBalance,
           ),
+
           SizedBox(
             height: 20,
           ),
@@ -88,15 +89,25 @@ class HomeScreenContainer extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          ManureAmount(
-            monthlyManure: dashboardData.monthlyManureTotal,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ManureAmount(
+                monthlyManure: dashboardData.monthlyManureTotal,
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              LoanAmount(
+                monthlyLoan: dashboardData.monthlyLoanTotal,
+              )
+            ],
           ),
           SizedBox(
             height: 20,
           ),
-          LoanAmount(
-            monthlyLoan: dashboardData.monthlyLoanTotal,
-          )
+          HarvestBalance(harvest: dashboardData.dailyHarvestTotal,)
+
         ],
       ),
     );
@@ -136,14 +147,14 @@ class AccountBalance extends StatelessWidget {
                 Text(
                   "Account Balance",
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      color: AppColors.white, fontWeight: FontWeight.bold),
+                      color: AppColors.white, fontWeight: FontWeight.bold, letterSpacing: 1.5),
                 ),
                 SizedBox(height: 12),
                 Text(
                   this.accountBalance + " LKR",
                   style: Theme.of(context)
                       .textTheme
-                      .headline6
+                      .headline5
                       .copyWith(color: AppColors.white, letterSpacing: 1.5),
                 )
               ],
@@ -173,14 +184,14 @@ class ManureAmount extends StatelessWidget {
     return Center(
       child: Container(
         height: 100,
-        width: double.infinity,
+        width: MediaQuery.of(context).size.width/2.4,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           boxShadow: [
             BoxShadow(
                 blurRadius: 10.0, color: AppColors.appGreen2.withOpacity(0.3))
           ],
-          color: AppColors.whitishGreen.withOpacity(1),
+          color: AppColors.somegreen.withOpacity(1),
         ),
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Row(
@@ -191,22 +202,75 @@ class ManureAmount extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Manure Requested",
+                  "$monthlyManure KG",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5
+                      .copyWith(color: AppColors.white),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  "Monthly Manure",
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      color: AppColors.white, fontWeight: FontWeight.bold),
+                ),
+
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class HarvestBalance extends StatelessWidget {
+  final String harvest;
+
+  const HarvestBalance({
+    Key key,
+    this.harvest,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        height: 100,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 10.0, color: AppColors.appGreen2.withOpacity(0.3))
+          ],
+          color: AppColors.whitishGreen.withOpacity(0.9),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Daily Harvest",
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                       color: AppColors.white, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 12),
                 Text(
-                  "$monthlyManure KG",
+                  this.harvest + " KG",
                   style: Theme.of(context)
                       .textTheme
-                      .headline6
+                      .headline5
                       .copyWith(color: AppColors.white, letterSpacing: 1.5),
                 )
               ],
             ),
             Icon(
-              Icons.line_style,
+              Icons.grass,
               size: 40,
               color: AppColors.white,
             )
@@ -216,7 +280,6 @@ class ManureAmount extends StatelessWidget {
     );
   }
 }
-
 class LoanAmount extends StatelessWidget {
   final String monthlyLoan;
 
@@ -230,7 +293,7 @@ class LoanAmount extends StatelessWidget {
     return Center(
       child: Container(
         height: 100,
-        width: double.infinity,
+        width: MediaQuery.of(context).size.width/2.4,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           boxShadow: [
@@ -248,31 +311,29 @@ class LoanAmount extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
+                  "$monthlyLoan LKR",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5
+                      .copyWith(color: AppColors.white, letterSpacing: 1.5),
+                ),
+                SizedBox(height: 5),
+                Text(
                   "Loan Amount",
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                       color: AppColors.white, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 12),
-                Text(
-                  "$monthlyLoan LKR",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6
-                      .copyWith(color: AppColors.white, letterSpacing: 1.5),
-                )
+
               ],
             ),
-            Icon(
-              Icons.monetization_on_outlined,
-              size: 40,
-              color: AppColors.white,
-            )
           ],
         ),
       ),
     );
   }
 }
+
+
 
 class PieChartSample2 extends StatefulWidget {
   final double income;

@@ -183,7 +183,7 @@ class HarvestScreen extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1
-                            .copyWith(letterSpacing: 1),
+                            .copyWith(letterSpacing: 1,color: AppColors.grey),
                         textAlign: TextAlign.left,
                       ),
                       SizedBox(
@@ -194,7 +194,7 @@ class HarvestScreen extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1
-                            .copyWith(letterSpacing: 1),
+                            .copyWith(letterSpacing: 1, color: AppColors.grey),
                         textAlign: TextAlign.left,
                       ),
                       SizedBox(
