@@ -2,10 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:packet_tea/bloc/core/home/home_cubit.dart';
 import 'package:packet_tea/bloc/core/manure/manure_request/manure_request_bloc.dart';
 import 'package:packet_tea/ui/screens/common_widgets/app_button.dart';
 import 'package:packet_tea/ui/screens/common_widgets/custom_scaffold.dart';
 import 'package:packet_tea/ui/screens/common_widgets/loader.dart';
+import 'package:packet_tea/ui/screens/home/home_screen.dart';
+import 'package:packet_tea/ui/screens/home/home_screen_view.dart';
+import 'package:packet_tea/ui/themes/appColors.dart';
 import 'package:packet_tea/ui/themes/app_theme_data.dart';
 
 class AddManureForm extends StatefulWidget {
@@ -52,7 +56,13 @@ class _AddManureFormState extends State<AddManureForm> {
             Loader.show(status: "Requesting Manure");
           } else if (state.status == FormzStatus.submissionSuccess) {
             Loader.hide();
-            Navigator.of(context).pop();
+            Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+              Future.delayed(
+                Duration(),
+                    () => context.read<HomeCubit>().changeHomeScreenViewTo
+                  (HomeScreenView.loan),
+              );
+              return HomePage();}));
           } else if (state.status == FormzStatus.submissionFailure) {
             Loader.error(error: "Manure Request Failed");
           } else {
@@ -108,6 +118,7 @@ class _AddManureFormState extends State<AddManureForm> {
           decoration: lightModeInputDecoration().copyWith(
             labelText: "Weight",
             hintText: "Enter Manure Weight",
+            prefixIcon: const Icon(Icons.line_weight_outlined, color: AppColors.appGreen1,),
             hasFloatingPlaceholder: true,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             errorText: state.weightField.getErrorMessageIfExists(),
@@ -138,6 +149,7 @@ class _AddManureFormState extends State<AddManureForm> {
           decoration: lightModeInputDecoration().copyWith(
             labelText: "Contact Name",
             hintText: "Enter Contact Name",
+            prefixIcon: const Icon(Icons.account_circle_outlined, color: AppColors.appGreen1,),
             hasFloatingPlaceholder: true,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             errorText: state.contactNameField.getErrorMessageIfExists(),
@@ -156,7 +168,7 @@ class _AddManureFormState extends State<AddManureForm> {
           key: const Key("manure_request_contact_field_key"),
           initialValue: state.contactField.value,
           autocorrect: false,
-          keyboardType: TextInputType.number,
+          keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,
           onChanged: (value) {
             context.read<ManureRequestBloc>().add(
@@ -166,6 +178,7 @@ class _AddManureFormState extends State<AddManureForm> {
           decoration: lightModeInputDecoration().copyWith(
             labelText: "Contact Number",
             hintText: "Enter Contact Number",
+            prefixIcon: const Icon(Icons.call, color: AppColors.appGreen1,),
             hasFloatingPlaceholder: true,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             errorText: state.contactField.getErrorMessageIfExists(),

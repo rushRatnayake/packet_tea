@@ -12,6 +12,7 @@ class EndPoints{
   static const String getUserBalance = "test";
   static const String getDashboardData = "tea-estate/";
   static const String getEstates = "tea-estate/owner/related/list";
+  static const String getUserData = "user/mobile/me";
 
   ///Loans : Endpoints
   static const String requestLoan = "loan";

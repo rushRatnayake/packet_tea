@@ -76,9 +76,7 @@ class ManureScreen extends StatelessWidget {
       cubit: BlocProvider.of<ManureBloc>(context),
       buildWhen: (previous,current)=> previous!=current,
       builder: (BuildContext context, ManureState state) {
-        if (state is ManureInitial || state is ManureInProgressState) {
-          return Center(child: CircularProgressIndicator());
-        } else if (state is ManureSuccessState) {
+        if (state is ManureSuccessState) {
           if (state.manure.manures.isEmpty) {
             return NoItemsToShowMessageWidget(
               message: "No Manure Requests",
@@ -143,7 +141,7 @@ class ManureScreen extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          color: AppColors.lightGrey,
+          color: Theme.of(context).colorScheme.surface.withOpacity(0.5),
           padding: EdgeInsets.only(top: 10, left: 10, bottom: 10),
           child: Text(
             "Manure Requests List",

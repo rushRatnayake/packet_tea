@@ -127,7 +127,7 @@ class LoanScreen extends StatelessWidget{
               children: [
                 Container(
                   width: double.infinity,
-                  color: AppColors.lightGrey,
+                  color: Theme.of(context).colorScheme.surface.withOpacity(0.5),
                   padding: EdgeInsets.only(top: 10, left: 10, bottom: 10),
                   child: Text(
                     "Loan Requests List",
@@ -237,9 +237,9 @@ class LoanScreen extends StatelessWidget{
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Icon(
-                    Icons.pending,
-                    size: 40,
-                    color: AppColors.darkYellow,
+                    loan.status == 'pending'? Icons.pending_outlined :  loan.status == 'approved'? Icons.done :Icons.cancel_outlined,
+                    size: 30,
+                    color: loan.status == 'pending'? AppColors.darkYellow :  loan.status == 'approved'? AppColors.green :AppColors.red,
                   ),
                 )
               ],

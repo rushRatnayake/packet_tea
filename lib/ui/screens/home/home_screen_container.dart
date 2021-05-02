@@ -8,7 +8,7 @@ import 'package:packet_tea/data/models/dashboard_model.dart';
 import 'package:packet_tea/ui/screens/common_widgets/generic_error_message.dart';
 import 'package:packet_tea/ui/themes/appColors.dart';
 
-class HomeScreenContainer extends StatelessWidget{
+class HomeScreenContainer extends StatelessWidget {
   const HomeScreenContainer({Key key}) : super(key: key);
 
   @override
@@ -30,10 +30,9 @@ class HomeScreenContainer extends StatelessWidget{
         if (state is DashboardInitial || state is DashboardInProgressState) {
           return Center(child: CircularProgressIndicator());
         } else if (state is DashboardSuccessState) {
-          if (state.dashboard == null){
+          if (state.dashboard == null) {
             return GenericErrorMessageWidget();
-
-          }else{
+          } else {
             return _buildSections(context, state.dashboard);
           }
         } else {
@@ -43,6 +42,7 @@ class HomeScreenContainer extends StatelessWidget{
       },
     );
   }
+
   List<BlocProvider> _createBlocProviders(final BuildContext context) {
     return [
       BlocProvider<DashboardBloc>(
@@ -54,31 +54,51 @@ class HomeScreenContainer extends StatelessWidget{
       ),
     ];
   }
+
   Widget _buildSections(BuildContext context, DashboardModel dashboardData) {
     return Container(
       padding: EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          AccountBalance(accountBalance: dashboardData.totalBalance,),
-          SizedBox(height: 20,),
+          AccountBalance(
+            accountBalance: dashboardData.totalBalance,
+          ),
+          SizedBox(
+            height: 20,
+          ),
           OptionItems(),
-          SizedBox(height: 20,),
-          PieChartSample2(),
-          SizedBox(height: 20,),
-          ManureAmount(monthlyManure: dashboardData.monthlyManureTotal,),
-          SizedBox(height: 20,),
-          LoanAmount(monthlyLoan: dashboardData.monthlyLoanTotal,)
+          SizedBox(
+            height: 20,
+          ),
+          PieChartSample2(
+            spent: (dashboardData.totalDebitedAmount /
+                (dashboardData.totalDebitedAmount +
+                        dashboardData.totalCreditedAmount))*100,
+            income:( dashboardData.totalCreditedAmount /
+                (dashboardData.totalDebitedAmount +
+                        dashboardData.totalCreditedAmount)
+          )*100,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          ManureAmount(
+            monthlyManure: dashboardData.monthlyManureTotal,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          LoanAmount(
+            monthlyLoan: dashboardData.monthlyLoanTotal,
+          )
         ],
       ),
     );
   }
-
 }
 
-
-class AccountBalance extends StatelessWidget{
-
+class AccountBalance extends StatelessWidget {
   final String accountBalance;
 
   const AccountBalance({
@@ -86,7 +106,6 @@ class AccountBalance extends StatelessWidget{
     this.accountBalance,
   }) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -94,12 +113,14 @@ class AccountBalance extends StatelessWidget{
         height: 100,
         width: double.infinity,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            boxShadow: [
-              BoxShadow(blurRadius: 10.0, color: AppColors.appGreen2.withOpacity(0.3))
-            ],
-            color: AppColors.appGreen1.withOpacity(0.9),),
-        padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 10.0, color: AppColors.appGreen2.withOpacity(0.3))
+          ],
+          color: AppColors.appGreen1.withOpacity(0.9),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -107,28 +128,41 @@ class AccountBalance extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Account Balance", style: Theme.of(context).textTheme.bodyText1.copyWith(color: AppColors.white, fontWeight: FontWeight.bold),),
+                Text(
+                  "Account Balance",
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      color: AppColors.white, fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 12),
-                Text(this.accountBalance+" LKR",style: Theme.of(context).textTheme.headline6.copyWith(color: AppColors.white,letterSpacing: 1.5),)
+                Text(
+                  this.accountBalance + " LKR",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      .copyWith(color: AppColors.white, letterSpacing: 1.5),
+                )
               ],
             ),
-            Icon(Icons.account_balance,size: 40, color: AppColors.white,)
+            Icon(
+              Icons.account_balance,
+              size: 40,
+              color: AppColors.white,
+            )
           ],
         ),
       ),
     );
   }
-
-
 }
 
-class ManureAmount extends StatelessWidget{
+class ManureAmount extends StatelessWidget {
   final String monthlyManure;
 
   const ManureAmount({
     Key key,
     this.monthlyManure,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -138,10 +172,12 @@ class ManureAmount extends StatelessWidget{
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           boxShadow: [
-            BoxShadow(blurRadius: 10.0, color: AppColors.appGreen2.withOpacity(0.3))
+            BoxShadow(
+                blurRadius: 10.0, color: AppColors.appGreen2.withOpacity(0.3))
           ],
-          color: AppColors.whitishGreen.withOpacity(1),),
-        padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+          color: AppColors.whitishGreen.withOpacity(1),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -149,29 +185,41 @@ class ManureAmount extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Manure Requested", style: Theme.of(context).textTheme.bodyText1.copyWith(color: AppColors.white, fontWeight: FontWeight.bold),),
+                Text(
+                  "Manure Requested",
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      color: AppColors.white, fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 12),
-                Text("$monthlyManure KG",style: Theme.of(context).textTheme.headline6.copyWith(color: AppColors.white,letterSpacing: 1.5),)
+                Text(
+                  "$monthlyManure KG",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      .copyWith(color: AppColors.white, letterSpacing: 1.5),
+                )
               ],
             ),
-            Icon(Icons.line_style,size: 40, color: AppColors.white,)
+            Icon(
+              Icons.line_style,
+              size: 40,
+              color: AppColors.white,
+            )
           ],
         ),
       ),
     );
   }
-
-
 }
 
-
-class LoanAmount extends StatelessWidget{
+class LoanAmount extends StatelessWidget {
   final String monthlyLoan;
 
   const LoanAmount({
     Key key,
     this.monthlyLoan,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -181,10 +229,12 @@ class LoanAmount extends StatelessWidget{
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           boxShadow: [
-            BoxShadow(blurRadius: 10.0, color: AppColors.appGreen2.withOpacity(0.3))
+            BoxShadow(
+                blurRadius: 10.0, color: AppColors.appGreen2.withOpacity(0.3))
           ],
-          color: AppColors.whitishGreen2.withOpacity(0.9),),
-        padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+          color: AppColors.whitishGreen2.withOpacity(0.9),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -192,31 +242,54 @@ class LoanAmount extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Loan Amount", style: Theme.of(context).textTheme.bodyText1.copyWith(color: AppColors.white, fontWeight: FontWeight.bold),),
+                Text(
+                  "Loan Amount",
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      color: AppColors.white, fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 12),
-                Text("$monthlyLoan LKR",style: Theme.of(context).textTheme.headline6.copyWith(color: AppColors.white,letterSpacing: 1.5),)
+                Text(
+                  "$monthlyLoan LKR",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      .copyWith(color: AppColors.white, letterSpacing: 1.5),
+                )
               ],
             ),
-            Icon(Icons.monetization_on_outlined,size: 40, color: AppColors.white,)
+            Icon(
+              Icons.monetization_on_outlined,
+              size: 40,
+              color: AppColors.white,
+            )
           ],
         ),
       ),
     );
   }
-
-
 }
 
-
-
 class PieChartSample2 extends StatefulWidget {
+  final double income;
+  final double spent;
+
+  const PieChartSample2({
+    Key key,
+    @required this.income,
+    @required this.spent,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => PieChart2State();
 }
 
-class PieChart2State extends State {
+class PieChart2State extends State<PieChartSample2> {
   int touchedIndex;
 
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -226,7 +299,8 @@ class PieChart2State extends State {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20)),
             boxShadow: [
-              BoxShadow(blurRadius: 10.0, color: AppColors.grey.withOpacity(0.5))
+              BoxShadow(
+                  blurRadius: 10.0, color: AppColors.grey.withOpacity(0.5))
             ],
             color: AppColors.naturalLightGreen),
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -238,12 +312,16 @@ class PieChart2State extends State {
                 aspectRatio: 1.2,
                 child: PieChart(
                   PieChartData(
-                      pieTouchData: PieTouchData(touchCallback: (pieTouchResponse) {
+                      pieTouchData:
+                          PieTouchData(touchCallback: (pieTouchResponse) {
                         setState(() {
-                          final desiredTouch = pieTouchResponse.touchInput is! PointerExitEvent &&
+                          final desiredTouch = pieTouchResponse.touchInput
+                                  is! PointerExitEvent &&
                               pieTouchResponse.touchInput is! PointerUpEvent;
-                          if (desiredTouch && pieTouchResponse.touchedSection != null) {
-                            touchedIndex = pieTouchResponse.touchedSection.touchedSectionIndex;
+                          if (desiredTouch &&
+                              pieTouchResponse.touchedSection != null) {
+                            touchedIndex = pieTouchResponse
+                                .touchedSection.touchedSectionIndex;
                           } else {
                             touchedIndex = -1;
                           }
@@ -299,20 +377,24 @@ class PieChart2State extends State {
         case 0:
           return PieChartSectionData(
             color: AppColors.shadesGreen2,
-            value: 15000,
-            title: '60%',
+            value: this.widget.income,
+            title: this.widget.income.toStringAsFixed(1),
             radius: radius,
             titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
           );
         case 1:
           return PieChartSectionData(
             color: AppColors.red.withOpacity(0.9),
-            value: 10000,
-            title: '40%',
+            value: this.widget.spent,
+            title: this.widget.spent.toStringAsFixed(1),
             radius: radius,
             titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
           );
         default:
           return null;
@@ -354,7 +436,8 @@ class Indicator extends StatelessWidget {
         ),
         Text(
           text,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
         )
       ],
     );
@@ -375,7 +458,6 @@ class _OptionItemsState extends State<OptionItems> {
     Icons.library_add_rounded,
     Icons.library_add_rounded,
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -430,9 +512,10 @@ class OptionItem extends StatelessWidget {
             maxLines: 2,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyText2.copyWith(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: AppColors.appGreen1, ),
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.appGreen1,
+                ),
           )
         ],
       ),

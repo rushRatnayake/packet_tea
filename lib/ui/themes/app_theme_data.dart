@@ -8,7 +8,7 @@ final ThemeData AppThemeData = ThemeData(
     brightness: Brightness.light,
     primaryColor: AppColors.naturalLightGreen,
     secondaryHeaderColor: AppColors.grey.withOpacity(0.4),
-    accentColor: AppColors.white,
+    accentColor: AppColors.appGreen1,
     appBarTheme: AppBarTheme(
         color:Colors.white,
         iconTheme: IconThemeData(color: AppColors.appGreen1),
@@ -39,9 +39,9 @@ final ThemeData AppThemeData = ThemeData(
     scaffoldBackgroundColor: AppColors.white,
     iconTheme: IconThemeData(color: AppColors.black),
     colorScheme: ColorScheme(
-      primary: AppColors.white,
+      primary: AppColors.appGreen1,
       primaryVariant: AppColors.white,
-      secondary: AppColors.white,
+      secondary: AppColors.appGreen2,
       secondaryVariant: AppColors.white,
       surface: AppColors.lightGrey,
       background: AppColors.darkGrey,
