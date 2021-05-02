@@ -55,7 +55,7 @@ class HarvestScreen extends StatelessWidget {
           } else {
             return Column(
               children: [
-                _buildTotal(context, state.harvest.totalHarvestAmount),
+                _buildTotal(context, state.harvest.totalHarvestWeight),
                 _buildList(context, state.harvest.harvests)
               ],
             );
@@ -144,7 +144,7 @@ class HarvestScreen extends StatelessWidget {
 
   Widget _listItem(BuildContext context, HarvestModel harvest) {
     return Container(
-      padding: EdgeInsets.only(left: 5),
+      padding: EdgeInsets.only(left: 8),
       color: harvest.status == 'pending'
           ? AppColors.darkYellow
           : harvest.status == 'rejected'

@@ -175,7 +175,7 @@ class LoanScreen extends StatelessWidget{
         ]
       ],
       child: Container(
-        padding: EdgeInsets.only(left: 5),
+        padding: EdgeInsets.only(left: 8),
         color: loan.status == 'pending'? AppColors.darkYellow :  loan.status == 'rejected'? AppColors.red :AppColors.green,
         child: Container(
             color: AppColors.white,
