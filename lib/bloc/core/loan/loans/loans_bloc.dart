@@ -20,6 +20,8 @@ class LoansBloc extends Bloc<LoansEvent, LoansState> {
       ) async* {
     if (event is LoansFetchEvent) {
       yield* _mapFetchLoansEventToState(event);
+    }else if(event is LoansDeleteEvent){
+      yield* _deleteLoanRecords(event);
     }
   }
 
@@ -29,6 +31,23 @@ class LoansBloc extends Bloc<LoansEvent, LoansState> {
     try {
       final LoanParentModel loans = await _loanService.fetchLoansByEstateID();
       yield LoansSuccessState(loans: loans);
+    } catch (error) {
+      yield LoansFailedState();
+    }
+  }
+
+  Stream<LoansState> _deleteLoanRecords(
+      LoansDeleteEvent event) async* {
+
+    try {
+      final bool successful = await _loanService.deleteLoanByID(event.deleteItemId);
+      if(successful){
+        yield LoansInProgressState();
+        final LoanParentModel loans = await _loanService.fetchLoansByEstateID();
+        yield LoansSuccessState(loans: loans);
+      }else{
+        yield LoansFailedState();
+      }
     } catch (error) {
       yield LoansFailedState();
     }

@@ -58,4 +58,17 @@ class LoanServices{
     }
   }
 
+  Future<bool> deleteLoanByID(String manureID) async{
+    try{
+      Response res = await HttpClientService.deleteReq(EndPoints.deleteLoans+manureID);
+      if(res.statusCode == 200 && res.data['status']){
+        return true;
+      }else{
+        return false;
+      }
+    }catch(error){
+      throw error;
+    }
+  }
+
 }

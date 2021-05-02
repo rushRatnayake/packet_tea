@@ -16,6 +16,8 @@ class EndPoints{
   ///Loans : Endpoints
   static const String requestLoan = "loan";
   static const String getLoansByEstateID = "loan/estate/";
+  static const String deleteLoans = "loan/";
+
 
   ///Harvest : Endpoints
   static const String getHarvestByEstateID = "/harvest/tea-estate/";

@@ -72,49 +72,70 @@ class ManureScreen extends StatelessWidget {
   }
 
   Widget _buildTotal(BuildContext context, String total, String amount) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      height: 100,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        boxShadow: [
-          BoxShadow(
-              blurRadius: 10.0, color: AppColors.appGreen2.withOpacity(0.3))
-        ],
-        color: AppColors.appGreen1.withOpacity(0.9),
-      ),
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Total Manure Requested ",
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    color: AppColors.white, fontWeight: FontWeight.bold),
+    return BlocBuilder<ManureBloc, ManureState>(
+      cubit: BlocProvider.of<ManureBloc>(context),
+      buildWhen: (previous,current)=> previous!=current,
+      builder: (BuildContext context, ManureState state) {
+        if (state is ManureInitial || state is ManureInProgressState) {
+          return Center(child: CircularProgressIndicator());
+        } else if (state is ManureSuccessState) {
+          if (state.manure.manures.isEmpty) {
+            return NoItemsToShowMessageWidget(
+              message: "No Manure Requests",
+            );
+          } else {
+            return Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              height: 100,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 10.0, color: AppColors.appGreen2.withOpacity(0.3))
+                ],
+                color: AppColors.appGreen1.withOpacity(0.9),
               ),
-              SizedBox(height: 12),
-              Text(
-                "$total KG",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline4
-                    .copyWith(color: AppColors.white),
-              )
-            ],
-          ),
-          Icon(
-            Icons.line_style,
-            size: 50,
-            color: AppColors.white,
-          )
-        ],
-      ),
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Total Manure Requested ",
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            color: AppColors.white, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        "$total KG",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4
+                            .copyWith(color: AppColors.white),
+                      )
+                    ],
+                  ),
+                  Icon(
+                    Icons.line_style,
+                    size: 50,
+                    color: AppColors.white,
+                  )
+                ],
+              ),
+            );
+          }
+        } else {
+          assert(state is ManureFailedState);
+          return GenericErrorMessageWidget();
+        }
+      },
     );
+
+
   }
 
   Widget _buildList(BuildContext context, List<ManureModel> manure) {

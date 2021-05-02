@@ -60,8 +60,7 @@ class ManureServices{
   Future<bool> deleteManureByID(String manureID) async{
     try{
       Response res = await HttpClientService.deleteReq(EndPoints.deleteManure+manureID);
-      final parsed = PacketTeaAPIResponse<Map<String, dynamic>>(res.data);
-      if(res.statusCode == 200 && parsed.status){
+      if(res.statusCode == 200 && res.data['status']){
         return true;
       }else{
         return false;
