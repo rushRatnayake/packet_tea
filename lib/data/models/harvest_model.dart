@@ -15,13 +15,13 @@ class HarvestModel extends AbstractModel{
   @override
   AbstractModel fromJson(Map<String, dynamic> json) {
     id = json['id'] as String ?? "";
-    approvedWeight = (json['approvedWeight'] as int ?? 0).toString();
-    amount = (json['amount'] as double ?? 0).toString();
-    weight = (json['weight'] as double ?? 0).toString();
+    approvedWeight = (json['approvedWeight'] as num ?? 0.0).toString();
+    amount = (json['amount'] as num ?? 0.0).toString();
+    weight = (json['weight'] as num ?? 0.0).toString();
     createAt = Jiffy(DateTime.fromMillisecondsSinceEpoch((json['createdAt'] as int ?? 0)*1000)).format('yyyy-M-dd');
-    approvedWeight = (json['approvedWeight'] as double ?? null).toString();
-    moistureWeight = (json['moistureWeight'] as double ?? 0).toString();
-    bagWeight = (json['bagWeight'] as int ?? 0).toString();
+    approvedWeight = (json['approvedWeight'] as num ?? null).toString();
+    moistureWeight = (json['moistureWeight'] as num ?? 0.0).toString();
+    bagWeight = (json['bagWeight'] as num ?? 0.0).toString();
     status = json['status'] as String ?? "";
 
     return this;
@@ -43,8 +43,8 @@ class HarvestParentModel extends AbstractModel{
 
   @override
   AbstractModel fromJson(Map<String, dynamic> json) {
-    totalHarvestAmount =(json['totalHarvestAmount'] as int ?? 0).toString();
-    totalHarvestWeight =(json['totalHarvestWeight'] as int ?? 0).toString();
+    totalHarvestAmount =(json['totalHarvestAmount'] as num ?? 0.0).toString();
+    totalHarvestWeight =(json['totalHarvestWeight'] as num ?? 0.0).toString();
     return this;
   }
 

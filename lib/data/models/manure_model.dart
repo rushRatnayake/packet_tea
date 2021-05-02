@@ -12,7 +12,7 @@ class ManureModel extends AbstractModel{
   @override
   AbstractModel fromJson(Map<String, dynamic> json) {
     id = json['id'] as String ?? "";
-    weight = (json['weight'] as int ?? 0).toString();
+    weight = (json['weight'] as num ?? 0.0).toString();
     contactPerson = json['contactPersonName'] as String ?? "";
     contactNumber = json['contactPersonPhoneNo'] as String ?? "";
     status = json['status'] as String ?? "";
@@ -37,8 +37,8 @@ class ManureParentModel extends AbstractModel{
 
   @override
   AbstractModel fromJson(Map<String, dynamic> json) {
-    totalManureAmount =(json['totalManureAmount'] as int ?? 0).toString();
-    totalManure =(json['totalManureWeight'] as int ?? 0).toString();
+    totalManureAmount =(json['totalManureAmount'] as num ?? 0.0).toString();
+    totalManure =(json['totalManureWeight'] as num ?? 0.0).toString();
     return this;
   }
 

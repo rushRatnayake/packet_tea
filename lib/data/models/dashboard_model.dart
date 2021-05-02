@@ -8,18 +8,19 @@ class DashboardModel extends AbstractModel{
   String dailyHarvestTotal;
   String monthlyManureTotal;
   String monthlyLoanTotal;
-  int totalDebitedAmount;
-  int totalCreditedAmount;
+  double totalDebitedAmount;
+  double totalCreditedAmount;
 
   @override
   AbstractModel fromJson(Map<String, dynamic> json) {
     // TODO: implement fromJson
-    totalBalance = (json['totalBalance'] as int ?? 0).toString();
-    dailyHarvestTotal = (json['dailyHarvestTotal'] as int ?? 0).toString();
-    monthlyManureTotal = (json['monthlyManureTotal'] as int ?? 0).toString();
-    monthlyLoanTotal = (json['monthlyLoanTotal'] as int ?? 0).toString();
-    totalDebitedAmount = (json['totalDebitedAmount'] as int ?? 0);
-    totalCreditedAmount = (json['totalCreditedAmount'] as int ?? 0);
+    totalBalance = (json['totalBalance'] as num ?? 0.0).toString();
+    dailyHarvestTotal = (json['dailyHarvestTotal'] as num ?? 0.0).toString();
+    monthlyManureTotal = (json['monthlyManureTotal'] as num ?? 0.0).toString();
+    monthlyLoanTotal = (json['monthlyLoanTotal'] as num ?? 0.0).toString();
+
+    totalDebitedAmount = (json['totalDebitedAmount'] as num ?? 0.0).toDouble();
+    totalCreditedAmount = (json['totalCreditedAmount'] as num ?? 0.0).toDouble() ;
 
   }
 

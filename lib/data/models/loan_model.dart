@@ -13,7 +13,7 @@ class LoanModel extends AbstractModel{
   @override
   AbstractModel fromJson(Map<String, dynamic> json) {
     id = json['id'] as String ?? "";
-    amount = (json['amount'] as int ?? 0).toString();
+    amount = (json['amount'] as num ?? 0.0).toString();
     notes =  json['notes'] as String ?? "";
     dateTime = Jiffy(DateTime.fromMillisecondsSinceEpoch((json['createdAt'] as int ?? 0)*1000)).format('yyyy-M-dd');
     status = json['status'] as String ?? "";
@@ -36,7 +36,7 @@ class LoanParentModel extends AbstractModel{
 
   @override
   AbstractModel fromJson(Map<String, dynamic> json) {
-    totalLoan =(json['totalLoanAmount'] as int ?? 0).toString();
+    totalLoan =(json['totalLoanAmount'] as num ?? 0.0).toString();
     return this;
   }
 

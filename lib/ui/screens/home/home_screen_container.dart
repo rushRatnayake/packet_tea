@@ -73,7 +73,7 @@ class HomeScreenContainer extends StatelessWidget {
             height: 20,
           ),
           PieChartSample2(
-            spent: dashboardData.totalDebitedAmount != 0
+            spent: dashboardData.totalDebitedAmount != 0.0
                 ? (dashboardData.totalDebitedAmount /
                         (dashboardData.totalDebitedAmount +
                             dashboardData.totalCreditedAmount)) *
