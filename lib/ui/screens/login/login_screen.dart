@@ -174,6 +174,7 @@ class _LogInScreenState extends State<LogInScreen> {
             initialValue: state.password,
             autocorrect: false,
             keyboardType: TextInputType.text,
+            obscureText : true,
             textInputAction: TextInputAction.done,
             onChanged: (value) {
               context.read<LoginBloc>().add(
