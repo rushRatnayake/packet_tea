@@ -179,6 +179,17 @@ class HarvestScreen extends StatelessWidget {
                         height: 3,
                       ),
                       Text(
+                        "Gross Weight : ${harvest.weight} KG",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            .copyWith(letterSpacing: 1),
+                        textAlign: TextAlign.left,
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text(
                         "${harvest.createAt}",
                         style: Theme.of(context)
                             .textTheme

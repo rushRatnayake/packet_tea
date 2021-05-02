@@ -60,7 +60,7 @@ class _AddManureFormState extends State<AddManureForm> {
               Future.delayed(
                 Duration(),
                     () => context.read<HomeCubit>().changeHomeScreenViewTo
-                  (HomeScreenView.loan),
+                  (HomeScreenView.manure),
               );
               return HomePage();}));
           } else if (state.status == FormzStatus.submissionFailure) {

@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                   size: 25,
                 ),
                 Expanded(
-                  flex: 0,
+                  flex: 1,
                   child: InkWell(
                     onTap: () {
                       _buildBottomSheet(context);
@@ -188,7 +188,7 @@ class _HomePageState extends State<HomePage> {
                       child: Text(
                         snapshot.data[1],
                         style: Theme.of(context).textTheme.headline6.copyWith(
-                          fontSize: 13,
+                          fontSize: 20,
                           color: AppColors.appGreen1,
                           // fontWeight: FontWeight.bold
                         ),
@@ -199,11 +199,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Expanded(
-                  flex: 1,
+                  flex: 0,
                   child: Text(
                     "Hi, ${snapshot.data[0]}!",
                     style: Theme.of(context).textTheme.headline6.copyWith(
-                      fontSize: 20,
+                      fontSize: 16,
                       color: AppColors.appGreen1,
                       // fontWeight: FontWeight.bold,
                     ),

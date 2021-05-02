@@ -72,13 +72,18 @@ class HomeScreenContainer extends StatelessWidget {
             height: 20,
           ),
           PieChartSample2(
-            spent: (dashboardData.totalDebitedAmount /
-                (dashboardData.totalDebitedAmount +
-                        dashboardData.totalCreditedAmount))*100,
-            income:( dashboardData.totalCreditedAmount /
-                (dashboardData.totalDebitedAmount +
-                        dashboardData.totalCreditedAmount)
-          )*100,
+            spent: dashboardData.totalDebitedAmount != 0
+                ? (dashboardData.totalDebitedAmount /
+                        (dashboardData.totalDebitedAmount +
+                            dashboardData.totalCreditedAmount)) *
+                    100
+                : 0,
+            income: dashboardData.totalCreditedAmount != 0
+                ? (dashboardData.totalCreditedAmount /
+                        (dashboardData.totalDebitedAmount +
+                            dashboardData.totalCreditedAmount)) *
+                    100
+                : 0,
           ),
           SizedBox(
             height: 20,
@@ -290,6 +295,7 @@ class PieChart2State extends State<PieChartSample2> {
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -377,7 +383,7 @@ class PieChart2State extends State<PieChartSample2> {
         case 0:
           return PieChartSectionData(
             color: AppColors.shadesGreen2,
-            value: this.widget.income,
+            value: this.widget.income != 0 ? this.widget.income : 50,
             title: this.widget.income.toStringAsFixed(1),
             radius: radius,
             titleStyle: TextStyle(
@@ -388,7 +394,7 @@ class PieChart2State extends State<PieChartSample2> {
         case 1:
           return PieChartSectionData(
             color: AppColors.red.withOpacity(0.9),
-            value: this.widget.spent,
+            value: this.widget.spent != 0 ? this.widget.spent : 50,
             title: this.widget.spent.toStringAsFixed(1),
             radius: radius,
             titleStyle: TextStyle(
@@ -519,6 +525,29 @@ class OptionItem extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class OptionItemSecond extends StatelessWidget {
+  final String title;
+  final IconData icon;
+
+  const OptionItemSecond({Key key, this.title, this.icon}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          border: Border.all(color: Colors.white),
+          boxShadow: [
+            BoxShadow(blurRadius: 5.0, color: AppColors.grey.withOpacity(0.5))
+          ],
+          color: Colors.white),
+      width: 90,
+      child: new Image.asset("assets/images/bulb.jpg"),
     );
   }
 }

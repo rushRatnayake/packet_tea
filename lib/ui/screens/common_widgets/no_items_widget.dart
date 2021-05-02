@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 // import 'lottie_asset.dart';
 
 class NoItemsToShowMessageWidget extends StatelessWidget {
@@ -8,19 +9,18 @@ class NoItemsToShowMessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      height: 650,
       child: Opacity(
         opacity: 0.2,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Container(
-            //   width: MediaQuery.of(context).size.width / 3,
-            //   child: LottieAsset(
-            //     assetPath: "assets/animations/sad_face.json",
-            //     repeat: true,
-            //   ),
-            // ),
+            Container(
+              width: MediaQuery.of(context).size.width / 3,
+              child: Lottie.asset( "assets/animations/sad_face.json"),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 10,

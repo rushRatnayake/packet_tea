@@ -7,6 +7,7 @@ import 'package:packet_tea/data/models/dashboard_model.dart';
 import 'package:packet_tea/data/services/shared_preferences_services.dart';
 import 'package:packet_tea/ui/screens/common_widgets/generic_error_message.dart';
 import 'package:packet_tea/ui/screens/common_widgets/no_items_widget.dart';
+import 'package:packet_tea/ui/screens/home/home_screen.dart';
 import 'package:packet_tea/ui/screens/home/home_screen_view.dart';
 import 'package:packet_tea/ui/themes/appColors.dart';
 
@@ -33,14 +34,8 @@ class _HomeEstateSelectorState extends State<HomeEstateSelector> {
 
   Widget _buildLocations(BuildContext context, EstateModel estate) {
     return InkWell(
-      onTap: () async{
-        await _sp.setEstateID(estate.id);
-        await  _sp.setEstateName(estate.name);
-        Future.delayed(
-          Duration(),
-              () => context.read<HomeCubit>().changeHomeScreenViewTo
-            (HomeScreenView.home),
-        );
+      onTap:(){
+        _onEstateChange(estate.id,estate.name);
       },
       child: Container(
         padding: EdgeInsets.only(top: 5),
@@ -104,8 +99,10 @@ class _HomeEstateSelectorState extends State<HomeEstateSelector> {
           return Center(child: CircularProgressIndicator());
         } else if (state is EstateSuccess) {
           if (state.estates.isEmpty) {
-            return NoItemsToShowMessageWidget(
-              message: "No Manure Requests",
+            return Container(
+              child: Text(
+                "Error Fetching Estates"
+              ),
             );
           } else {
             return Container(
@@ -155,5 +152,18 @@ class _HomeEstateSelectorState extends State<HomeEstateSelector> {
       ),
     );
 
+  }
+
+  Future<void> _onEstateChange(String id, String name) async{
+    await _sp.setEstateID(id);
+    await  _sp.setEstateName(name);
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+      Future.delayed(
+        Duration(),
+            () => context.read<HomeCubit>().changeHomeScreenViewTo
+          (HomeScreenView.home),
+      );
+      return HomePage();
+    }));
   }
 }

@@ -120,7 +120,7 @@ class LoanScreen extends StatelessWidget{
         } else if (state is LoansSuccessState) {
           if (state.loans.loan.isEmpty){
             return NoItemsToShowMessageWidget(
-              message: "No Loan Request",
+              message: "No Loan Requests",
             );
           }else{
             return Column(

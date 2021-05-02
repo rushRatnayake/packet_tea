@@ -2,7 +2,6 @@ import 'package:packet_tea/data/services/secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceService {
-
   static const _uniquePrefix = 'com.packettea.sharedpreferences.key';
   static const _isLoggedIn = "${_uniquePrefix}_isLoggedIn";
   static const _estateID = "${_uniquePrefix}_estateID";
@@ -16,20 +15,25 @@ class SharedPreferenceService {
   }
 
   /// Setters and Getters
-  Future<void> setLogin() async{
+  Future<void> setLogin() async {
     var sp = await SharedPreferences.getInstance();
     final SecureStorageService _secureStorage = SecureStorageService();
-    if( await _secureStorage.readSecureData("AccessToken") != null){
+    if (await _secureStorage.readSecureData("AccessToken") != null) {
       sp.setBool(_isLoggedIn, true);
-    }else{
+    } else {
       sp.setBool(_isLoggedIn, false);
     }
   }
 
   Future<bool> isLoggedIn() async {
-    var sp = await SharedPreferences.getInstance();
-    var loggedIn = sp.getBool(_isLoggedIn);
-    return Future.value(loggedIn);
+    final SecureStorageService _secureStorage = SecureStorageService();
+    if (await _secureStorage.readSecureData("AccessToken") != null &&
+        await getEstateID() != null &&
+        await getEstateName() != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Future<void> setEstateID(String id) async {
@@ -64,6 +68,4 @@ class SharedPreferenceService {
     var provider = sp.getString(_userName);
     return Future.value(provider);
   }
-
-
 }
