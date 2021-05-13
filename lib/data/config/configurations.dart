@@ -1,4 +1,4 @@
 class Configurations{
-  static String apiOrigin = "https://packet-tea.tk/";
+  static String apiOrigin = "https://api.packet-tea.tk/";
 
 }
